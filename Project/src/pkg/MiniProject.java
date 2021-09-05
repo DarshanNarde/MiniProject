@@ -7,12 +7,12 @@ public class MiniProject  {
   
     
 	public static void main(String[] args) throws IOException, InterruptedException {
-		//set property for chrome browser 
+		//Setting property of a system variable used by chrome driver 
 		System.setProperty("webdriver.chrome.driver","D:\\selenium\\driver\\chromedriver.exe");
 	    //calling methods from testCases class
-		testCases.excelFile();
+		testCases.readExcelFile();
 		testCases.gotoUrl();
-		testCases.web();
+		testCases.logIn();
 	
 		
 		

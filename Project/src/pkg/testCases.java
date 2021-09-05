@@ -30,7 +30,7 @@ public class testCases
 	  static WebDriver driver=new ChromeDriver();
 	  
 	
-	  static void excelFile() 
+	  static void readExcelFile() 
 		{
 			
 			try{
@@ -41,19 +41,23 @@ public class testCases
 	        //object of excel sheet
 	        HSSFSheet sheet=wb.getSheet("orders");
 	        
-	        //initialization of iterator with excel sheet
+	        //iterate through each rows one by one
 	        Iterator<Row> itr = sheet.iterator();
 
-	        // Iterating over Excel file in Java
+	        //return true if the given list iterator contains more number
 	        while (itr.hasNext()) {
 	            Row row = itr.next();
 	            
 	            //reading rows from excel 
 	            Iterator<Cell> cellIterator = row.cellIterator();
-	            while (cellIterator.hasNext()) {
+	            //Returns true if the iteration has more elements.
+	            while (cellIterator.hasNext()) 
+	            {
+	            	//Returns the next element in the iteration.
 	                Cell cell = cellIterator.next();
-	                
-	                switch (cell.getCellType()) {
+	                //Set the cells type (numeric, formula or string).If the cell currently contains 
+	                switch (cell.getCellType())
+	                {
 	                case STRING:
 	                    //getting values form excel and stored in variable 
 	                    String get = cell.getStringCellValue();
@@ -74,15 +78,15 @@ public class testCases
 			
 		}
 	  
-	 
+	 //visiting URL
 	 public static void gotoUrl()
 	    {  
 	    	driver.get("https://www.amazon.in/");
 	    	driver.manage().window().maximize();
 	    }
 	    
-	    
-	 static void web() throws IOException, InterruptedException
+	 //log-in in account of amazon.in
+	 static void logIn() throws IOException, InterruptedException
 	    {
 	    	//selecting sing-in object form amazon.in 
 			driver.findElement(By.xpath("//span[@id='nav-link-accountList-nav-line-1']")).click();
@@ -119,17 +123,18 @@ public class testCases
 				
 			}
 			
-			//
-			testCases.check(moduleName, result, comment);
-			
-            testCases.insert();
+			//passing values to testCaseModule
+			testCases.testCaseModule(moduleName, result, comment);
+			//calling searchMoule
+            testCases.searchModule();
 	       
 	  }	
 	  
 	    	
 	    
-	 public static boolean insert() throws InterruptedException, IOException 
+	 public static boolean searchModule() throws InterruptedException, IOException 
 	   {
+		   
 		   boolean insertCheck=false;
 		   
 		   //for loop to pass each element form array 
@@ -169,6 +174,7 @@ public class testCases
 				
 				for(int j=0;j<links.size();j++)
 				{
+					//getting text from from searched results 
 					if(links.get(j).getText().length()>20)
 					{
 						counter++;
@@ -182,12 +188,10 @@ public class testCases
 					//here we breaking that loop after first 5 results
 					if(counter>=5)
 					{
-						//
 						insertCheck=true;
 						break;
 					}
 					
-				
 					
 				}
 				
@@ -210,8 +214,8 @@ public class testCases
 				 
 			 }
 		      
-			 //
-			 testCases.check(moduleName, result, comment);
+			 //passing values to testCaseModule
+			 testCases.testCaseModule(moduleName, result, comment);
 		   
 	   }
 		   
@@ -221,7 +225,7 @@ public class testCases
 	   }
 	 
 	 
-	public static void check(String moduleName,String result,String comment) throws IOException 
+	public static void testCaseModule(String moduleName,String result,String comment) throws IOException 
 	   {
 	    //Created file to add test cases 	  
 	    File filePath=new File("D:\\selenium\\testCase.txt");
